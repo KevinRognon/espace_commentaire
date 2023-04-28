@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 body{
   width: 80%;
-  max-height: 80%;
   margin: 0 auto;
   font-family: 'Roboto', sans-serif;
 }

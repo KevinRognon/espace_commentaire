@@ -7,7 +7,6 @@ import Main from './components/Main.vue'
 
 <template>
   <header>
-    <h1>Espace Commentaires</h1>
   </header>
 
   <main>

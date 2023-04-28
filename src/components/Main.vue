@@ -4,23 +4,26 @@ import { reactive } from 'vue'
 export default {
 	setup(){
 		let user = reactive({
-			username: '',
+			nom: '',
+			prenom: '',
 			content: ''
 		})
 		let liste_commentaires = reactive([])
 
 		function storeComment(){
-			if(user.username == '' || user.content == ''){
+			if(user.nom == '' || user.prenom == '' || user.content == ''){
 				alert('Veuillez remplir tous les champs')
 				return
 			}
 			liste_commentaires.push({
 				user: {
-					username: user.username,
+					nom: user.nom,
+					prenom: user.prenom,
 					content: user.content
 				}
 			})
-			user.username = ''
+			user.nom = ''
+			user.prenom = ''
 			user.content = ''
 		}
 		return {
@@ -39,18 +42,27 @@ export default {
 	<section>
 		<div id="coms" v-for="item in liste_commentaires">
 			<div>
-				<h3>{{ item.user.username }}</h3>
+				<h3>{{ item.user.prenom + " " + item.user.nom }}</h3>
 				<p>{{ item.user.content }}</p>
 			</div>
+			<span class="sep"></span>
 		</div>
 	</section>
 	<h2>Ecrire un commentaire</h2>
 	<form @submit.prevent="storeComment()">
-		<label>Pseudonyme: </label><br>
-		<input id="input_pseudo" v-model="user.username" type="text"><br>
+		<div>
+			<label>Prénom: </label><br>
+			<input id="input_pseudo" v-model="user.prenom" type="text">
+		</div>
+		<div>
+			<label>Nom: </label><br>
+			<input id="input_pseudo" v-model="user.nom" type="text"><br>
+		</div>
 
-		<label>Votre commentaire: </label><br>
-		<textarea id="text_area" v-model="user.content" cols="50" rows="5" maxlength="300"></textarea><br>
+		<div>
+			<label>Votre commentaire: </label><br>
+			<textarea id="text_area" v-model="user.content" cols="50" rows="5" maxlength="300"></textarea><br>
+		</div>
 		<button>Envoyer</button>
 	</form>
 </template>
@@ -65,8 +77,7 @@ export default {
 	section{
 		display: flex;
 		flex-direction: column;
-		height: 400px;
-		overflow-y: scroll;
+		align-items: left;
 		scrollbar-width: thin;
 		margin-bottom: 50px;
 	}
@@ -74,11 +85,18 @@ export default {
 		font-family: 'Roboto';
 		color: black;
 		min-width: 20rem;
-		max-width: 40rem;
+		max-width: 100%;
 		min-height: 100px;
 		margin: 20px;
 
 		overflow: hidden;
+	}
+	.sep{
+		display: block;
+		width: 100%;
+		height: 1px;
+		background-color: grey;
+		opacity: 0.3;
 	}
 	#coms div {
 		margin: 30px;
@@ -95,18 +113,21 @@ export default {
 		color: grey;
 	}
 	form{
-		display: flex;
-		flex-direction: column;
 		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		flex-direction: column;
 	}
 	form label{
 		text-align: left;
+		font-weight: bold;
 	}
 	form input{
 		font-size: 1.4rem;
-		width: 40rem;
+		width: 60vw;
 		height: 3rem;
-		border-radius: 10px;
+		border-radius: 8px;
 		border-style: solid;
 		border-color: grey;
 
@@ -116,6 +137,7 @@ export default {
 		font-size: 1.4rem;
 	}
 	form textarea{
+		width: 60vw;
 		font-size: 1.4rem;
 		padding: 10px;
 		border-radius: 10px;
