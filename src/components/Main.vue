@@ -11,7 +11,7 @@ export default {
 		let liste_commentaires = reactive([])
 
 		function storeComment(){
-			if(user.nom == '' || user.prenom == '' || user.content == ''){
+			if(user.nom === '' || user.prenom === '' || user.content === ''){
 				alert('Veuillez remplir tous les champs')
 				return
 			}
@@ -49,6 +49,7 @@ export default {
 		</div>
 	</section>
 	<h2>Ecrire un commentaire</h2>
+
 	<form @submit.prevent="storeComment()">
 		<div>
 			<label>Prénom: </label><br>
